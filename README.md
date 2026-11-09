@@ -24,6 +24,10 @@ Also included:
 - **Database** — IndexedDB (`lumina-agent`) storing conversations, messages, memories, images, videos, and settings.
 - **Swappable model layer** — `src/lib/ai.ts` exposes one provider interface; keyless free endpoints today, paid or custom-trained models later without UI changes.
 
+## Live
+
+**https://lumina-ten-phi-43.vercel.app** — production deployment (chat, image, video, voice, database and themes all run there; the desktop bridge runs locally).
+
 ## Quick start
 
 ```bash
