@@ -1,13 +1,22 @@
 {
   "name": "lumina",
-  "version": "0.1.0",
+  "productName": "Lumino Agent",
+  "version": "1.0.0",
   "private": true,
+  "description": "Lumino Agent — AI companion for chat, voice, image and video, with optional local desktop access.",
+  "author": "Kishore Kumar <kishore302408@gmail.com>",
+  "license": "MIT",
+  "main": "electron/main.cjs",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "agent": "node agent/bridge.mjs"
+    "agent": "node agent/bridge.mjs",
+    "prepare:standalone": "node scripts/prepare-standalone.mjs",
+    "build:desktop": "next build && node scripts/prepare-standalone.mjs",
+    "electron": "electron .",
+    "dist": "next build && node scripts/prepare-standalone.mjs && electron-builder --win --publish never"
   },
   "dependencies": {
     "next": "16.4.5",
@@ -19,9 +28,53 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "electron": "^45.2.3",
+    "electron-builder": "^26.18.0",
     "eslint": "^9",
     "eslint-config-next": "16.4.5",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "build": {
+    "appId": "com.lumina.luminoagent",
+    "productName": "Lumino Agent",
+    "copyright": "© 2026 Kishore Kumar",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "electron/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": ".next/standalone",
+        "to": "runtime",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "afterPack": "scripts/after-pack.cjs",
+    "asar": false,
+    "win": {
+      "icon": "electron/icon.ico",
+      "target": [
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Lumino Agent",
+      "displayLanguageSelector": false,
+      "runAfterFinish": true
+    },
+    "compression": "normal",
+    "npmRebuild": false
   }
 }

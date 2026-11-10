@@ -28,6 +28,21 @@ Also included:
 
 **https://lumina-ten-phi-43.vercel.app** — production deployment (chat, image, video, voice, database and themes all run there; the desktop bridge runs locally).
 
+## Desktop app (Windows)
+
+Lumina ships as a real desktop app with its own window, taskbar icon, and shortcuts — no terminal needed:
+
+1. Run the installer (`release\Lumino Agent Setup 1.0.0.exe`) — or build it yourself with `npm run dist`.
+2. Launch **Lumino Agent** from the desktop or Start Menu shortcut.
+
+What the desktop app does on launch:
+
+- starts its bundled Next.js server on a free `127.0.0.1` port (no internet needed for the UI),
+- starts the Desktop Bridge automatically (reuses one you started with `npm run agent` if present),
+- opens the window once both are ready, and kills both cleanly when you close it — nothing keeps running after the app exits.
+
+Everything except AI generation (chat/image replies come from the keyless public model endpoint) works fully offline: the UI, themes, intro, database, history, video rendering, and desktop access.
+
 ## Quick start
 
 ```bash
